@@ -1,0 +1,63 @@
+{
+  "name": "btron",
+  "version": "0.0.1",
+  "description": "Bundle Electron projects with live reload",
+  "main": "./build/index.js",
+  "bin": {
+    "btron": "bin/btron"
+  },
+  "scripts": {
+    "prebuild": "mkdir -p build",
+    "build": "babel --ignore=node_modules,_* src --out-dir build",
+    "dev": "npm run build -s -- --watch",
+    "clean": "rm -rf build",
+    "prepublish": "npm run build"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ]
+  },
+  "dependencies": {
+    "babel-core": "^6.21.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babelify": "^7.3.0",
+    "cross-spawn": "^5.0.1",
+    "electron": "^1.4.13",
+    "electron-packager": "^8.4.0",
+    "event-stream": "^3.3.4",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-bro": "^0.3.1",
+    "gulp-clean-css": "^2.3.2",
+    "gulp-ejs": "^2.3.0",
+    "gulp-if": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-sass": "^3.0.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0",
+    "gulp-watch": "^4.3.11",
+    "lodash": "^4.17.4",
+    "node-sass": "^4.1.1",
+    "tree-kill": "^1.1.0",
+    "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.4.0"
+  },
+  "author": "Eliot Akira",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliot-akira/btron.git"
+  },
+  "license": "MIT"
+}

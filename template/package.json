@@ -1,0 +1,15 @@
+{
+  "name": "APP_NAME",
+  "title": "APP_NAME",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./build/server/index.js",
+  "scripts": {
+  },
+  "dependencies": {
+    "electron-window-state": "^3.0.3"
+  },
+  "repository": "",
+  "author": "",
+  "license": "MIT"
+}
