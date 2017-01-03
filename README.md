@@ -1,7 +1,7 @@
 
 # B-Tron
 
-Bundle Electron projects with live reload
+Bundle [Electron](http://electron.atom.io/) projects with live reload
 
 ## Install
 
@@ -12,7 +12,7 @@ npm install btron -g
 ..or as devDependency:
 
 ```bash
-npm install bob-bundler -D
+npm install btron -D
 ```
 
 ## Commands
@@ -21,24 +21,23 @@ npm install bob-bundler -D
 
 - Create a new project folder with basic structure
 
-  /assets - Will be copied to /build
+  `/assets` - Contents will be copied to `/build`
 
-  /client/index.html - Compiled via Ejs
+  `/client/index.html` - Compiled via [Ejs](http://ejs.co/)
 
-  /client/index.scss - Compiled via Sass
+  `/client/index.scss` - Compiled via [Sass](https://sass-lang.com/)
 
-  /client/index.js - Compiled via Sass
+  `/client/index.js` - Compiled via [Browserify](http://browserify.org/)
 
-  /icons - Icons for packaged app
+  `/icons` - Icons for packaged app
 
-  /server - Compiled via Babel
+  `/server` - Compiled via [Babel](https://babeljs.io/)
 
-  package.json - Dependencies (not devDependency) will be installed in /build
+  `package.json` - Dependencies (not devDependency) will be installed in `/build`
 
 **`btron`**
 
-- Build all
-- Watch for file change, then recompile and reload
+- Build the app, watch for file change, then recompile and reload
 
 **`btron [platform]`**
 
