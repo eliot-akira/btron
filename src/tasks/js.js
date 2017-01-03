@@ -6,7 +6,7 @@ import uglify from 'gulp-uglify'
 import $if from 'gulp-if'
 import sourcemaps from 'gulp-sourcemaps'
 
-export default ({ src, dest, dev = true, name }, cb) => () => (
+export default ({ src, dest, dev = true, name }, cb) => (done) => (
   gulp.src(src, { read: false }) // recommended option for gulp-bro
   .pipe(browserify({
     entries: [src],
@@ -18,5 +18,12 @@ export default ({ src, dest, dev = true, name }, cb) => () => (
   .pipe($if(!dev, uglify()))
   .pipe(rename(name))
   .pipe(gulp.dest(dest))
-  .on('end', () => cb && cb())
+  .on('error', function(e) {
+    console.log(e.message)
+    this.emit('end')
+  })
+  .on('end', () => {
+    if (cb) cb()
+    else if (done) done()
+  })
 )

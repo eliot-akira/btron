@@ -3,7 +3,7 @@ import gulp from 'gulp'
 import replace from 'gulp-replace'
 import es from 'event-stream'
 
-export default ({ projectRoot, libRoot, args }) => () => {
+export default ({ projectRoot, libRoot, args }) => (done) => {
 
   const base = path.join(libRoot, 'template')
   const src = [
@@ -20,7 +20,7 @@ export default ({ projectRoot, libRoot, args }) => () => {
 
   console.log(`Creating new project in ${dest}`)
 
-  return es.merge([
+  const stream = es.merge([
 
     gulp.src(src, { base })
       .pipe(gulp.dest(dest)),
@@ -33,6 +33,8 @@ export default ({ projectRoot, libRoot, args }) => () => {
       .pipe(replace(placeholder, name))
       .pipe(gulp.dest(dest)),
   ])
+
+  return stream.on('end', () => done && done())
 }
 
 function createName(args) {

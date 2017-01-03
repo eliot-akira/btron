@@ -1,7 +1,7 @@
 import packager from 'electron-packager'
 import prebuilt from 'electron/package.json'
 
-export default ({ src, platform, dest, projectRoot }, cb) => () => {
+export default ({ src, platform, dest, projectRoot }, cb) => (done) => {
 
   packager({
 
@@ -32,7 +32,8 @@ export default ({ src, platform, dest, projectRoot }, cb) => () => {
       console.log('Packaged', appPaths[0])
       //execSync('', {cwd: `${dest}/`})
     }
-    cb && cb(err, appPaths)
+    if (cb) cb(err, appPaths)
+    else if (done) done()
   })
 
 }

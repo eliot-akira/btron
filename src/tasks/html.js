@@ -6,7 +6,7 @@ import replace from 'gulp-replace'
 
 // ------------ HTML ------------
 
-export default ({ src, dest, dev = true, electron = true }, cb) => () => {
+export default ({ src, dest, dev = true, electron = true }, cb) => (done) => {
 
   const script = !electron ? null :
 `<script>
@@ -22,5 +22,12 @@ require('${path.join(__dirname, '../electron-connect/client')}').create()`
     .pipe(ejs({}, { ext: '.html' }))
     .pipe(replace('</head>', `${script}</head>`))
     .pipe(gulp.dest(dest))
-    .on('end', () => cb && cb())
+    .on('error', function(e) {
+      console.log(e.message)
+      this.emit('end')
+    })
+    .on('end', () => {
+      if (cb) cb()
+      else if (done) done()
+    })
 }

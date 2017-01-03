@@ -6,12 +6,12 @@ import babel from 'gulp-babel'
 import replace from 'gulp-replace'
 import install from './install'
 
-export default ({ src, dest, srcRoot, destRoot, projectRoot, electron = true }, cb) => () => {
+export default ({ src, dest, srcRoot, destRoot, projectRoot, electron = true }, cb) => (done) => {
 
   let stream = gulp.src(src)
     .pipe(babel()) // { presets: ['es2015'] }
     .on('error', function(e) {
-      console.log(`\nERROR: ${e.message}\n`)
+      console.log(e.message)
       this.emit('end')
     })
     .pipe(gulp.dest(dest))
@@ -30,6 +30,7 @@ export default ({ src, dest, srcRoot, destRoot, projectRoot, electron = true }, 
       // Install node_modules (only dependencies) in build folder
       install({ destRoot })
     }
-    cb && cb()
+    if (cb) cb()
+    else if (done) done()
   })
 }

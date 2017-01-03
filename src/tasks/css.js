@@ -6,7 +6,7 @@ import minifyCSS from 'gulp-clean-css'
 import $if from 'gulp-if'
 //import autoprefixer from 'gulp-autoprefixer'
 
-export default ({ src, dest, dev = true, name }, cb) => () => (
+export default ({ src, dest, dev = true, name }, cb) => (done) => (
   gulp.src(src)
     .pipe($if(dev, sourcemaps.init()))
     .pipe(sass({
@@ -17,7 +17,7 @@ export default ({ src, dest, dev = true, name }, cb) => () => (
       processImport: false // ?
     }))
     .on('error', function(e) {
-      console.log(`\nERROR: ${e.message}\n`)
+      console.log(e.message)
       this.emit('end')
     })
     //.pipe(autoprefixer({ browsers: ['last 2 versions', 'IE 10', '> 1%'], cascade: false }))
@@ -25,5 +25,8 @@ export default ({ src, dest, dev = true, name }, cb) => () => (
     .pipe(rename(name))
     .pipe($if(dev, sourcemaps.write()))
     .pipe(gulp.dest(dest))
-    .on('end', () => cb && cb())
+    .on('end', () => {
+      if (cb) cb()
+      else if (done) done()
+    })
 )

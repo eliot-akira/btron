@@ -40,4 +40,4 @@ const config = {
 
 require('./tasks/all')(config)
 
-gulp.start(command)
+gulp.task(command)()
