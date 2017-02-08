@@ -5,11 +5,12 @@ import gulp from 'gulp'
 import babel from 'gulp-babel'
 import replace from 'gulp-replace'
 import install from './install'
+import createBabelConfig from '../createBabelConfig'
 
 export default ({ src, dest, srcRoot, destRoot, projectRoot, electron = true }, cb) => (done) => {
 
   let stream = gulp.src(src)
-    .pipe(babel()) // { presets: ['es2015'] }
+    .pipe(babel(createBabelConfig())) // { presets: ['es2015'] }
     .on('error', function(e) {
       console.log(e.message)
       this.emit('end')

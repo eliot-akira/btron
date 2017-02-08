@@ -2,6 +2,7 @@ import path from 'path'
 import gulp from 'gulp'
 import replace from 'gulp-replace'
 import es from 'event-stream'
+import { execSync } from 'child_process'
 
 export default ({ projectRoot, libRoot, args }) => (done) => {
 
@@ -18,7 +19,7 @@ export default ({ projectRoot, libRoot, args }) => (done) => {
   const name = createName(args)
   const placeholder = 'APP_NAME'
 
-  console.log(`Creating new project in ${dest}`)
+  console.log(`Create new project in ${dest}`)
 
   const stream = es.merge([
 
@@ -34,7 +35,17 @@ export default ({ projectRoot, libRoot, args }) => (done) => {
       .pipe(gulp.dest(dest)),
   ])
 
-  return stream.on('end', () => done && done())
+  return stream.on('end', () => {
+
+    // Install node_modules
+
+    execSync('npm install', { cwd: dest })
+
+    console.log('Installed npm modules')
+    console.log(`Run: cd ${dest} && btron`)
+
+    done && done()}
+  )
 }
 
 function createName(args) {

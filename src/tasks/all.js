@@ -10,8 +10,11 @@ import packElectron from './pack'
 import buildServer from './server'
 import install from './install'
 //import lint from './lint'
+import createBabelConfig from '../createBabelConfig'
 
 module.exports = ({ client, server, pack, args, projectRoot, libRoot, electron }) => {
+
+  process.env.IS_ELECTRON = 'true'
 
   const config = {
     js: { src: `${client.src}/index.js`, dest: client.dest, name: 'app.js' },
@@ -90,7 +93,8 @@ module.exports = ({ client, server, pack, args, projectRoot, libRoot, electron }
     gulp.watch(config.server.src)
       .on('change', (filePath) => {
         return gulp.src(filePath, { base: server.src })
-          .pipe(babel()).on('error', function(e) {
+          .pipe(babel(createBabelConfig()))
+          .on('error', function(e) {
             console.log(`\nERROR: ${e.message}\n`)
             this.emit('end')
           })

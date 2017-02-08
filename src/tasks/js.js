@@ -5,14 +5,17 @@ import babelify from 'babelify'
 import uglify from 'gulp-uglify'
 import $if from 'gulp-if'
 import sourcemaps from 'gulp-sourcemaps'
+import createBabelConfig from '../createBabelConfig'
 
 export default ({ src, dest, dev = true, name }, cb) => (done) => (
   gulp.src(src, { read: false }) // recommended option for gulp-bro
   .pipe(browserify({
     entries: [src],
     debug: dev, // Source maps
-    transform: [babelify],
-    // Resolve require paths for client source and shared lib
+    transform: [
+      babelify.configure(createBabelConfig())
+    ],
+    // Resolve require paths for client source
     paths: ['./client']
   }))
   .pipe($if(!dev, uglify()))

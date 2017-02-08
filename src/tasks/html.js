@@ -8,7 +8,7 @@ import replace from 'gulp-replace'
 
 export default ({ src, dest, dev = true, electron = true }, cb) => (done) => {
 
-  const script = !electron ? null :
+  const script = !electron ? '' :
 `<script>
 electron = require('electron')
 ${ dev
