@@ -48,5 +48,5 @@ npm install btron -D
 
 The following are included by default.
 
-- Babel presets: `es2015` and `stage-0`
+- Babel presets: `env`, `stage-0` and `react`
 - Babel plugin: `add-module-exports`

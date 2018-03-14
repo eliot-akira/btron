@@ -13,7 +13,7 @@ export default ({ src, platform, dest, projectRoot }, cb) => (done) => {
     out: dest,
     overwrite: true,
     asar: true,
-    version: prebuilt.version,
+    electronVersion: prebuilt.version,
 
     icon: `${projectRoot}/icons/icon`, // .icns or .ico
     // Icon for Linux:

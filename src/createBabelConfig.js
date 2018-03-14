@@ -4,7 +4,10 @@ import path from 'path'
 // Installed inside, i.e., via npm link
 let moduleDir = path.join(__dirname, '../node_modules')
 
-try { fs.statSync(moduleDir) }
+try {
+  // Check if deps installed
+  fs.statSync(path.join(moduleDir, 'babel-preset-env'))
+}
 catch (e) {
   // Installed as devDependency
   moduleDir = path.join(__dirname, '../..')
